@@ -1,0 +1,16 @@
+
+module Algonaif =
+  struct
+   
+(**
+
+ *)
+    let algonaif =
+      let rec algonaifacc tt acc =
+        match tt with
+        | _::q when acc == 0 -> algonaifacc q (acc-1)
+        | t::_ -> t 
+      in algonaifacc tous (Random.int (List.length(tous)));;
+                 
+  end;;
+open Algonaif;;

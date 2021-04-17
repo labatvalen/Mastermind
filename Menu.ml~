@@ -1,0 +1,62 @@
+module Menu =
+
+struct
+
+type pion = int ;;
+type t = pion list;;
+
+let tous = [[1;1];[1;2]];;
+
+let rec string_of_code code = 
+   match code with
+      | [] -> String.make 1 (' ')
+      | h :: [] -> String.make 1 (char_of_int(h))
+      | h :: t -> (String.make 1 (char_of_int(h))) ^ string_of_code t;;
+
+let digit_of_char c = (int_of_char c - int_of_char '0');;
+
+(*"Mettre un espace entre chaque caractere du string en entrée sinon bug
+-> imaginer nombre a deux chiffres
+-> verifier après l'entree
+-> definir dès le depart la taille d'un code de reference pour faciliter l'exploitation des erreurs"*)
+
+let match_ASCII_int char = int_of_char(char) - 48;;
+      
+(* verifier des l'entree du code en stirng que celui ci est correct sinon erreurs*)
+
+let code_of_string chaine =
+   let longueur = String.length(chaine) -1 in
+      let rec cosrec chn lg acc puissance =
+         match lg with
+            | a when a >= 0 -> if chn.[a] = ' ' then (cosrec chn (lg-1) "" 0.) @ [acc]
+                                        else cosrec chn (lg-1) (acc + int_of_float(match_ASCII_int(char) ** puissance)) (puissance+.1.)
+           | _ -> [acc]
+in cosrec chaine longueur "" 0.;;
+              
+
+
+
+(*
+let rec verification codes_possibles code =
+   match codes_possibles with
+       | [] -> false
+       | h :: [] -> h = code
+       | h :: t -> if h = code then true else verification t code;;
+
+let rec choisir_code  =
+   let () = print_string "Entrez le code que vous voulez faire deviner." in
+   let i = read_line () in 
+       if verification tous (code_of_string(i)) then 
+          let () = print_string "Le code entré est correct." in
+          let () = print_newline ()
+          in print_newline ()
+       else
+          let () = print_string "Le code entré est incorrect. Veuillez réessayer." in
+            print_newline () 
+         in coisir_code lstcode;;
+*)
+end;;
+
+open Menu;;
+
+read_line();;
